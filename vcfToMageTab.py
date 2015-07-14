@@ -42,14 +42,13 @@ def getConfig(inputYaml):
     handle.close()
 
     # FIXME This can be a command line input, but cannot always be parsed from the VCF header.
-    configY['disease'] = "SICK"
     # do we have all inputs?
-    expected = ['expDesign', 'expDesignOntology', 'expDesignFactorName', 'expDesignFactorType', 
+    expected = ['expDesign', 'expDesignOntology', 'expDesignFactorName', 'expDesignFactorType', 'investigationTitle',
         'personLastName', 'personFirstName', 'personMidInitial', 'personEmail', 'personAddress', 
          'personAffiliation', 'personRole', 'pubMedId', 'pubAuthors', 'pubTitle', 'pubStatus', 
          'expDescription', 'protocolNames', 'protocolTypes', 'protocolDescriptions', 
          'protocolOntologies', 'protocolParameters', 'ontologyName', 'ontologyFile', 
-         'ontologyVersion', 'disease']
+         'ontologyVersion']
     found = set(configY.keys())
     if set(expected).difference(found):
         for mis in set(expected).difference(found):
@@ -326,7 +325,7 @@ def createIDF(idfFilename, sdrfFilename, varDict):
 
     # output the experimental design lines
     # FIXME: Title is hardcoded
-    idfFileHandler.write("\t".join(["Investigation Title", "Analysis of TCGA " + varDict["disease"] + " Whole-Exome Sequencing (WES) and RNA-Seq data"]) + "\n")
+    idfFileHandler.write("\t".join(["Investigation Title", varDict["investigationTitle"]]) + "\n")
     idfFileHandler.write("\t".join(["Experimental Design", varDict["expDesign"]]) + "\n")
     idfFileHandler.write("\t".join(["Experimental Design Term Source REF", varDict["expDesignOntology"]]) + "\n")
     idfFileHandler.write("\t".join(["Experimental Factor Name", varDict["expDesignFactorName"]]) + "\n")

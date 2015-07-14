@@ -9,8 +9,6 @@ vcfToMageTab.py ${idf_yaml} ${in_vcf} magetab
     <inputs>
         <param name='in_vcf' type="data" format="vcf" help="Input VCF" label="InVCF"/>
 
-        <param name='disease' type='text' value="" help="a disease abbreviation (e.g. BRCA), will be taken from VCF header if available"/>
-
         <conditional name="params">
           <param type="select" name="source">
             <option value="file">Param File</option>
@@ -21,6 +19,7 @@ vcfToMageTab.py ${idf_yaml} ${in_vcf} magetab
             <param name='expDesignOntology' type='text' value="MGED Ontology" help="the experimental design term source reference (e.g. MGED, HUGO, etc."/>
             <param name='expDesignFactorName' type='text' value="somatic_variant" help="the experimental design factor name"/>
             <param name='expDesignFactorType' type='text' value="disease_state" help="the experimental design factor type"/>
+            <param name='investigationTitle' type='text' value="MC3 Exome Variant Calling project" help="Investigation Title"/>
             <param name='personLastName' type='text' value="Radenbaugh" help="the submitter's last name"/>
             <param name='personFirstName' type='text' value="Amie" help="the submitter's first name"/>
             <param name='personMidInitial' type='text' value="J" help="the submitter's middle initial"/>
@@ -41,8 +40,6 @@ vcfToMageTab.py ${idf_yaml} ${in_vcf} magetab
             <param name='ontologyName' type='text' value="MGED Ontology" help="the ontology name"/>
             <param name='ontologyFile' type='text' value="http://mged.sourceforge.net/ontologies/MGEDontology.php" help="the ontology file"/>
             <param name='ontologyVersion' type='text' value="1.3.1.1" help="the ontology version"/>
-            <param name='logLevel' type='text' value="WARNING" help="the logging level (DEBUG, INFO, WARNING, ERROR, CRITICAL), %default by default"/>
-            <param name='logFilename' type='text' help="the name of the log file, STDOUT by default"/>
           </when>
           <when value="file">
             <param type="data" format="txt" name="input_yaml" label="Input YAML"/>
@@ -61,6 +58,7 @@ expDesign : '$params.expDesign'
 expDesignOntology : '$params.expDesignOntology'
 expDesignFactorName : '$params.expDesignFactorName'
 expDesignFactorType : '$params.expDesignFactorType'
+investigationTitle : '$params.investigationTitle'
 personLastName : '$params.personLastName'
 personFirstName : '$params.personFirstName'
 personMidInitial : '$params.personMidInitial'
