@@ -154,6 +154,8 @@ def createSDRF(vcfFile, sdrfFilename, archiveName, varDict, anIsDebug):
                 dnaFasta = "36.1"
             elif ("NCBI37" in line):
                 dnaFasta = "37"
+            else:
+                dnaFasta = "NA"
 
         # we need to extract info from the SAMPLE tag in the header
         elif (line.startswith("##SAMPLE")):
@@ -264,6 +266,7 @@ def createSDRF(vcfFile, sdrfFilename, archiveName, varDict, anIsDebug):
     # protocol:somatic_variant, vcfFilename, tcgaSpecVersion, used?, dataType, dataLevel, archiveName
     dnaNormalList += [protocolSomaticVariants, vcfFilename, tcgaSpecVersion, "yes", "Mutations", "Level 2", archiveName]
     # write to file
+    print("DNA Normal List", dnaNormalList)
     sdrfFileHandler.write("\t".join(dnaNormalList) + "\n")
 
     #################
@@ -318,56 +321,56 @@ def createSDRF(vcfFile, sdrfFilename, archiveName, varDict, anIsDebug):
 
 
 def createIDF(idfFilename, sdrfFilename, varDict):
-	"""Create IDF format output. This looks very similar to the expected yaml config input, but contains the sdrf filename and a title"""
-        idfFileHandler = get_write_fileHandler(idfFilename)
+    """Create IDF format output. This looks very similar to the expected yaml config input, but contains the sdrf filename and a title"""
+    idfFileHandler = get_write_fileHandler(idfFilename)
 
-        # output the experimental design lines
-        # FIXME: Title is hardcoded
-        idfFileHandler.write("\t".join(["Investigation Title", "Analysis of TCGA " + varDict["disease"] + " Whole-Exome Sequencing (WES) and RNA-Seq data"]) + "\n")
-        idfFileHandler.write("\t".join(["Experimental Design", varDict["expDesign"]]) + "\n")
-        idfFileHandler.write("\t".join(["Experimental Design Term Source REF", varDict["expDesignOntology"]]) + "\n")
-        idfFileHandler.write("\t".join(["Experimental Factor Name", varDict["expDesignFactorName"]]) + "\n")
-        idfFileHandler.write("\t".join(["Experimental Factor Type", varDict["expDesignFactorType"]]) + "\n")
-        idfFileHandler.write("\n")
+    # output the experimental design lines
+    # FIXME: Title is hardcoded
+    idfFileHandler.write("\t".join(["Investigation Title", "Analysis of TCGA " + varDict["disease"] + " Whole-Exome Sequencing (WES) and RNA-Seq data"]) + "\n")
+    idfFileHandler.write("\t".join(["Experimental Design", varDict["expDesign"]]) + "\n")
+    idfFileHandler.write("\t".join(["Experimental Design Term Source REF", varDict["expDesignOntology"]]) + "\n")
+    idfFileHandler.write("\t".join(["Experimental Factor Name", varDict["expDesignFactorName"]]) + "\n")
+    idfFileHandler.write("\t".join(["Experimental Factor Type", varDict["expDesignFactorType"]]) + "\n")
+    idfFileHandler.write("\n")
 
-        # output the person lines
-        idfFileHandler.write("\t".join(["Person Last Name", varDict["personLastName"]]) + "\n")
-        idfFileHandler.write("\t".join(["Person First Name", varDict["personFirstName"]]) + "\n")
-        idfFileHandler.write("\t".join(["Person Mid Initials", varDict["personMidInitial"]]) + "\n")
-        idfFileHandler.write("\t".join(["Person Email", varDict["personEmail"]]) + "\n")
-        idfFileHandler.write("\t".join(["Person Address", varDict["personAddress"]]) + "\n")
-        idfFileHandler.write("\t".join(["Person Affiliation", varDict["personAffiliation"]]) + "\n")
-        idfFileHandler.write("\t".join(["Person Roles", varDict["personRole"]]) + "\n")
-        idfFileHandler.write("\n")
+    # output the person lines
+    idfFileHandler.write("\t".join(["Person Last Name", varDict["personLastName"]]) + "\n")
+    idfFileHandler.write("\t".join(["Person First Name", varDict["personFirstName"]]) + "\n")
+    idfFileHandler.write("\t".join(["Person Mid Initials", varDict["personMidInitial"]]) + "\n")
+    idfFileHandler.write("\t".join(["Person Email", varDict["personEmail"]]) + "\n")
+    idfFileHandler.write("\t".join(["Person Address", varDict["personAddress"]]) + "\n")
+    idfFileHandler.write("\t".join(["Person Affiliation", varDict["personAffiliation"]]) + "\n")
+    idfFileHandler.write("\t".join(["Person Roles", varDict["personRole"]]) + "\n")
+    idfFileHandler.write("\n")
 
-        # output the publication lines
-        idfFileHandler.write("\t".join(["PubMed ID", str(varDict["pubMedId"])]) + "\n")
-        idfFileHandler.write("\t".join(["Publication Author List", varDict["pubAuthors"]]) + "\n")
-        idfFileHandler.write("\t".join(["Publication Title", varDict["pubTitle"]]) + "\n")
-        idfFileHandler.write("\t".join(["Publication Status", varDict["pubStatus"]]) + "\n")
-        idfFileHandler.write("\t".join(["Experiment Description", varDict["expDescription"]]) + "\n")
-        idfFileHandler.write("\n")
+    # output the publication lines
+    idfFileHandler.write("\t".join(["PubMed ID", str(varDict["pubMedId"])]) + "\n")
+    idfFileHandler.write("\t".join(["Publication Author List", varDict["pubAuthors"]]) + "\n")
+    idfFileHandler.write("\t".join(["Publication Title", varDict["pubTitle"]]) + "\n")
+    idfFileHandler.write("\t".join(["Publication Status", varDict["pubStatus"]]) + "\n")
+    idfFileHandler.write("\t".join(["Experiment Description", varDict["expDescription"]]) + "\n")
+    idfFileHandler.write("\n")
 
-        # output the protocol lines
-        idfFileHandler.write("\t".join(["Protocol Name", "\t".join(varDict["protocolNames"].split(","))]) + "\n")
-        idfFileHandler.write("\t".join(["Protocol Type", "\t".join(varDict["protocolTypes"].split(","))]) + "\n")
-        idfFileHandler.write("\t".join(["Protocol Description", "\t".join(varDict["protocolDescriptions"].split(","))]) + "\n")
-        idfFileHandler.write("\t".join(["Protocol Term Source REF", "\t".join(varDict["protocolOntologies"].split(","))]) + "\n")
-        idfFileHandler.write("\t".join(["Protocol Parameters", "\t".join(varDict["protocolParameters"].split(","))]) + "\n")
-        idfFileHandler.write("\n")
+    # output the protocol lines
+    idfFileHandler.write("\t".join(["Protocol Name", "\t".join(varDict["protocolNames"].split(","))]) + "\n")
+    idfFileHandler.write("\t".join(["Protocol Type", "\t".join(varDict["protocolTypes"].split(","))]) + "\n")
+    idfFileHandler.write("\t".join(["Protocol Description", "\t".join(varDict["protocolDescriptions"].split(","))]) + "\n")
+    idfFileHandler.write("\t".join(["Protocol Term Source REF", "\t".join(varDict["protocolOntologies"].split(","))]) + "\n")
+    idfFileHandler.write("\t".join(["Protocol Parameters", "\t".join(varDict["protocolParameters"].split(","))]) + "\n")
+    idfFileHandler.write("\n")
 
-        # output the sdrf line
-        sdrfBasename = os.path.basename(sdrfFilename)
-        idfFileHandler.write("\t".join(["SDRF Files", sdrfBasename]) + "\n")
-        idfFileHandler.write("\n")
+    # output the sdrf line
+    sdrfBasename = os.path.basename(sdrfFilename)
+    idfFileHandler.write("\t".join(["SDRF Files", sdrfBasename]) + "\n")
+    idfFileHandler.write("\n")
 
-        # output the ontology lines
-        idfFileHandler.write("\t".join(["Term Source Name", varDict["ontologyName"]]) + "\n")
-        idfFileHandler.write("\t".join(["Term Source File", varDict["ontologyFile"]]) + "\n")
-        idfFileHandler.write("\t".join(["Term Source Version", varDict["ontologyVersion"]]) + "\n")
+    # output the ontology lines
+    idfFileHandler.write("\t".join(["Term Source Name", varDict["ontologyName"]]) + "\n")
+    idfFileHandler.write("\t".join(["Term Source File", varDict["ontologyFile"]]) + "\n")
+    idfFileHandler.write("\t".join(["Term Source Version", varDict["ontologyVersion"]]) + "\n")
 
-        # close the file
-        idfFileHandler.close()
+    # close the file
+    idfFileHandler.close()
 
 
 
