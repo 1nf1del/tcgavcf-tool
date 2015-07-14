@@ -38,7 +38,7 @@ config:
         SAMPLE=&lt;
         ID={id},
         Description="{description}",
-        SampleUUID={aliquot_uuid},SampleTCGABarcode={aliquot_name}
+        SampleUUID={aliquot_uuid},SampleTCGABarcode={aliquot_name},
         AnalysisUUID={analysis_uuid},File="{bam_name}",
         Platform="${platform}",
         Source="dbGAP",Accession="dbGaP",
