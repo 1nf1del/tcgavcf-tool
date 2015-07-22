@@ -6,27 +6,40 @@
     </requirements>
 
     <command interpreter="python">
-tcga-vcf-reheader.py ${input_vcf} ${output_vcf} ${config_yaml}
+tcga-vcf-reheader.py ${input_vcf} ${output_vcf} ${config_yaml} 
+#if $sample.source == "file":
+${sample.info_file}
+#end if
     </command>
 
     <inputs>
         <param type="data" format="vcf" name="input_vcf" label="Input VCF"/>
-        <param type="text" name="platform" label="Platform"/>
         <param type="text" name="software_name" label="Software Name"/>
         <param type="text" name="software_version" label="Software Version"/>
         <param type="text" name="software_params" label="Software Params"/>
         <param type="text" name="center" label="Center"/>
         <param type="text" name="filedate"/>
         <param type="text" name="reference"/>
-        <param type="text" name="normal_analysis_uuid"/>
-        <param type="text" name="normal_bam_name"/>
-        <param type="text" name="normal_aliquot_uuid"/>
-        <param type="text" name="normal_aliquot_name"/>
-        <param type="text" name="tumor_analysis_uuid"/>
-        <param type="text" name="tumor_bam_name"/>
-        <param type="text" name="tumor_aliquot_uuid"/>
-        <param type="text" name="tumor_aliquot_name"/>
-
+        <conditional name="sample">
+          <param type="select" name="source">
+            <option value="file">Sample Info File</option>
+            <option value="manual">Manual</option>
+          </param>
+          <when value="manual">
+            <param type="text" name="platform" label="Platform"/>
+            <param type="text" name="normal_analysis_uuid"/>
+            <param type="text" name="normal_bam_name"/>
+            <param type="text" name="normal_aliquot_uuid"/>
+            <param type="text" name="normal_aliquot_name"/>
+            <param type="text" name="tumor_analysis_uuid"/>
+            <param type="text" name="tumor_bam_name"/>
+            <param type="text" name="tumor_aliquot_uuid"/>
+            <param type="text" name="tumor_aliquot_name"/>
+          </when>
+          <when value="file">
+            <param type="data" format="txt" name="info_file" label="Sample Info"/>
+          </when>
+        </conditional>
     </inputs>
 
     <outputs>
@@ -41,7 +54,7 @@ config:
         Description="{description}",
         SampleUUID={aliquot_uuid},SampleTCGABarcode={aliquot_name},
         AnalysisUUID={analysis_uuid},File="{bam_name}",
-        Platform="${platform}",
+        Platform="{platform}",
         Source="dbGAP",Accession="dbGaP",
         softwareName=<{software_name}>,
         softwareVer=<{software_version}>,
@@ -58,19 +71,23 @@ config:
         - [center,      False,  '"${center}"']
         - [phasing,     False,  'none']  # TODO: Think about this one.
         - [reference,   False,  '${reference}']
+#if $sample.source == "manual":
 samples:
     NORMAL:
         description:    'Normal sample'
-        analysis_uuid:  ${normal_analysis_uuid}
-        bam_name:       ${normal_bam_name}
-        aliquot_uuid:   ${normal_aliquot_uuid}
-        aliquot_name:   ${normal_aliquot_name}
+        analysis_uuid:  ${sample.normal_analysis_uuid}
+        bam_name:       ${sample.normal_bam_name}
+        aliquot_uuid:   ${sample.normal_aliquot_uuid}
+        aliquot_name:   ${sample.normal_aliquot_name}
+        platform:       ${sample.platform}
     PRIMARY:
         description:    'Primary Tumor'
-        analysis_uuid:  ${tumor_analysis_uuid}
-        bam_name:       ${tumor_bam_name}
-        aliquot_uuid:   ${tumor_aliquot_uuid}
-        aliquot_name:   ${tumor_aliquot_name}
+        analysis_uuid:  ${sample.tumor_analysis_uuid}
+        bam_name:       ${sample.tumor_bam_name}
+        aliquot_uuid:   ${sample.tumor_aliquot_uuid}
+        aliquot_name:   ${sample.tumor_aliquot_name}
+        platform:       ${sample.platform}
+#end if
 ]]>
         </configfile>
     </configfiles>

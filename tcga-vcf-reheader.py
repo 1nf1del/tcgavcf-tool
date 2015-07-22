@@ -18,8 +18,10 @@ __version__ = '1.0.0'
 
 def main():
     args = parse_args()
-    with open(args.parameter_file_path) as yaml_file:
-        args.parameter_map = yaml.load(yaml_file)
+    args.parameter_map = {}
+    for path in args.parameter_file_path: 
+        with open(path) as yaml_file:
+            args.parameter_map = dict(args.parameter_map, **yaml.load(yaml_file))
     # TODO: Configure logging
     errors = run(args)
     if errors:
@@ -30,7 +32,7 @@ def parse_args():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('input_file_path', help='the VCF to read')
     parser.add_argument('output_file_path', help='the VCF to write')
-    parser.add_argument('parameter_file_path', help='the YAML with details')
+    parser.add_argument('parameter_file_path', nargs="+", help='the YAML with details')
     args = parser.parse_args()
     return args
 
