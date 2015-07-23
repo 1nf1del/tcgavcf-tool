@@ -4,7 +4,13 @@
       <container type="docker">tcga-vcf-reheader:0.1</container>
     </requirements>
     <command interpreter="python">
-vcfToMageTab.py ${idf_yaml} ${in_vcf} magetab
+vcfToMageTab.py 
+#if $params.source == "file":
+${params.input_yaml}
+#else
+${idf_yaml} 
+#end if
+${in_vcf} magetab
     </command>
     <inputs>
         <param name='in_vcf' type="data" format="vcf" help="Input VCF" label="InVCF"/>
