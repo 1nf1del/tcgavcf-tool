@@ -6,7 +6,7 @@
     </requirements>
 
     <command interpreter="python">
-tcga-vcf-reheader.py ${input_vcf} ${output_vcf} ${config_yaml} 
+tcga-vcf-reheader.py ${input_vcf} ${output_vcf} ${config_yaml}
 #if $sample.source == "file":
 ${sample.info_file}
 #end if
@@ -18,14 +18,14 @@ ${sample.info_file}
         <param type="text" name="software_version" label="Software Version"/>
         <param type="text" name="software_params" label="Software Params"/>
         <param type="text" name="center" label="Center"/>
-        <param type="text" name="filedate"/>
-        <param type="text" name="reference" size="50"/>
         <conditional name="sample">
           <param type="select" name="source">
             <option value="file">Sample Info File</option>
             <option value="manual">Manual</option>
           </param>
           <when value="manual">
+            <param type="text" name="filedate"/>
+            <param type="text" name="reference_genome" size="50"/>
             <param type="text" name="platform" label="Platform" size="50" default="Illumina"/>
             <param type="text" name="normal_analysis_uuid" size="50"/>
             <param type="text" name="normal_bam_name" size="50"/>
@@ -66,11 +66,13 @@ config:
       software_params:    '${software_params}'
     fixed_headers:  # name, assert, value
         - [fileformat,  False,   'VCFv4.1']
-        - [fileDate,    False,  '${filedate}']
         - [tcgaversion, False,   '1.1']
         - [center,      False,  '"${center}"']
         - [phasing,     False,  'none']  # TODO: Think about this one.
-        - [reference,   False,  '${reference}']
+#if $sample.source == "manual":
+        - [fileDate,    False,  '${sample.filedate}']
+        - [reference,   False,  '${sample.reference_genome}']
+#end if
 #if $sample.source == "manual":
 samples:
     NORMAL:

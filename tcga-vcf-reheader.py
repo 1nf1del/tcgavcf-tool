@@ -19,9 +19,14 @@ __version__ = '1.0.0'
 def main():
     args = parse_args()
     args.parameter_map = {}
-    for path in args.parameter_file_path: 
+    for path in args.parameter_file_path:
         with open(path) as yaml_file:
-            args.parameter_map = dict(args.parameter_map, **yaml.load(yaml_file))
+            new_params = yaml.load(yaml_file)
+            for k,v in new_params.items():
+                if k in args.parameter_map:
+                    args.parameter_map[k] = dict(args.parameter_map[k], **v)
+                else:
+                    args.parameter_map[k] = v
     # TODO: Configure logging
     errors = run(args)
     if errors:
