@@ -2,7 +2,7 @@
     <description></description>
 
     <requirements>
-        <container type="docker">tcga-vcf-reheader:0.1</container>
+        <container type="docker">tcgavcf-tool:0.1</container>
     </requirements>
 
     <command interpreter="python">
