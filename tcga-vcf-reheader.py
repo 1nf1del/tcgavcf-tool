@@ -11,6 +11,7 @@ import argparse
 import sys
 
 import yaml
+import datetime
 
 
 __version__ = '1.0.0'
@@ -58,6 +59,8 @@ def run(args):
 
 def write_fixed_headers(fout, fixed_headers):
     for name, ignored, value in fixed_headers:
+        if name == 'fileDate':
+            value = datetime.date.today().strftime('%Y%m%d')
         write_meta_line(fout, name, value)
 
 

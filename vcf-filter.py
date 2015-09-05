@@ -15,10 +15,10 @@ if __name__ == "__main__":
                 allowed_seq[elem] = True
 
     with open(input_vcf) as ihandle:
-        for open(output_vcf, "w") as ohandle:
+        with open(output_vcf, "w") as ohandle:
             for line in ihandle:
                 write = False
-                if line.start("#"):
+                if line.startswith("#"):
                     write = True
                 else:
                     tmp = line.split("\t")
