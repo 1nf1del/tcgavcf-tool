@@ -50,7 +50,7 @@ config:
         - [fileformat,  False,   'VCFv4.1']
         - [fileDate,    False,  '${filedate}']
         - [tcgaversion, False,   '1.1']
-        - [center,      False,  '"${center}"']
+        - [center,      False,  '${center}']
         - [phasing,     False,  'none']  # TODO: Think about this one.
         - [reference,   False,  '${reference_genome}']
 
