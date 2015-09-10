@@ -24,7 +24,6 @@ ${sample.info_file}
             <option value="file">Sample Info File</option>
           </param>
           <when value="manual">
-            <param type="text" name="filedate" label="File Date"/>
             <param type="text" name="reference_genome" label="Reference" size="50"/>
             <param type="text" name="platform" label="Platform" size="50" default="Illumina"/>
             <param type="text" name="normal_analysis_uuid" label="Normal Analysis UUID" size="50"/>
@@ -65,12 +64,7 @@ config:
       software_version:   '${software_version}'
       software_params:    '"${software_params}"'
     fixed_headers:  # name, assert, value
-        - [fileformat,  False,   'VCFv4.1']
-        - [tcgaversion, False,   '1.1']
         - [center,      False,  '"${center}"']
-        - [phasing,     False,  'none']  # TODO: Think about this one.
-        - [fileDate,    False,  '${sample.filedate}']
-        - [reference,   False,  '${sample.reference_genome}']
         - [vcfProcessLog,   False,  '<InputVCF=<${input_vcf}>, InputVCFSource=<${software_name}>,InputVCFVer=<4.1>, InputVCFParam=<"${software_params}">>']
 #if $sample.source == "manual":
 samples:

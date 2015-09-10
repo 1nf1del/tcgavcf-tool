@@ -11,7 +11,6 @@ cat ${config_yaml} > ${output_yaml}
 
     <inputs>
       <param type="text" name="center" label="center" size="50" default="OHSU"/>
-      <param type="text" name="filedate" label="filedate" size="50" default="20150901"/>
       <param type="text" name="platform" label="platform" size="50" default="Illumina"/>
       <param type="text" name="reference_genome" label="reference_genome" size="50" default="Illumina"/>
       <param type="text" name="normal_analysis_uuid" label="normal_analysis_uuid" size="50"/>
@@ -48,9 +47,7 @@ samples:
 config:
     fixed_headers:  # name, assert, value
         - [fileformat,  False,   'VCFv4.1']
-        - [fileDate,    False,  '${filedate}']
         - [tcgaversion, False,   '1.1']
-        - [center,      False,  '${center}']
         - [phasing,     False,  'none']  # TODO: Think about this one.
         - [reference,   False,  '${reference_genome}']
 
