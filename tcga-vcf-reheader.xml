@@ -20,21 +20,20 @@ ${sample.info_file}
         <param type="text" name="center" label="Center"/>
         <conditional name="sample">
           <param type="select" name="source">
-            <option value="file">Sample Info File</option>
             <option value="manual">Manual</option>
+            <option value="file">Sample Info File</option>
           </param>
           <when value="manual">
-            <param type="text" name="filedate"/>
-            <param type="text" name="reference_genome" size="50"/>
+            <param type="text" name="reference_genome" label="Reference" size="50"/>
             <param type="text" name="platform" label="Platform" size="50" default="Illumina"/>
-            <param type="text" name="normal_analysis_uuid" size="50"/>
-            <param type="text" name="normal_bam_name" size="50"/>
-            <param type="text" name="normal_aliquot_uuid" size="50"/>
-            <param type="text" name="normal_aliquot_barcode" size="50"/>
-            <param type="text" name="tumor_analysis_uuid" size="50"/>
-            <param type="text" name="tumor_bam_name" size="50"/>
-            <param type="text" name="tumor_aliquot_uuid" size="50"/>
-            <param type="text" name="tumor_aliquot_barcode" size="50"/>
+            <param type="text" name="normal_analysis_uuid" label="Normal Analysis UUID" size="50"/>
+            <param type="text" name="normal_bam_name" label="Normal Bam Name" size="50"/>
+            <param type="text" name="normal_aliquot_uuid" label="Normal Aliquot UUID" size="50"/>
+            <param type="text" name="normal_aliquot_barcode" label="Normal Aliquot Barcode" size="50"/>
+            <param type="text" name="tumor_analysis_uuid" label="Tumor Analysis UUID" size="50"/>
+            <param type="text" name="tumor_bam_name" label="Tumor Bam Name" size="50"/>
+            <param type="text" name="tumor_aliquot_uuid" label="Tumor Aliquot UUID" size="50"/>
+            <param type="text" name="tumor_aliquot_barcode" label="Tumor Aliquot Barcode" size="50"/>
           </when>
           <when value="file">
             <param type="data" format="txt" name="info_file" label="Sample Info"/>
@@ -63,16 +62,10 @@ config:
     fixed_sample_params:
       software_name:      '${software_name}'
       software_version:   '${software_version}'
-      software_params:    '${software_params}'
+      software_params:    '"${software_params}"'
     fixed_headers:  # name, assert, value
-        - [fileformat,  False,   'VCFv4.1']
-        - [tcgaversion, False,   '1.1']
         - [center,      False,  '"${center}"']
-        - [phasing,     False,  'none']  # TODO: Think about this one.
-#if $sample.source == "manual":
-        - [fileDate,    False,  '${sample.filedate}']
-        - [reference,   False,  '${sample.reference_genome}']
-#end if
+        - [vcfProcessLog,   False,  '<InputVCF=<${input_vcf}>, InputVCFSource=<${software_name}>,InputVCFVer=<4.1>, InputVCFParam=<"${software_params}">>']
 #if $sample.source == "manual":
 samples:
     NORMAL:
@@ -87,7 +80,7 @@ samples:
         analysis_uuid:  ${sample.tumor_analysis_uuid}
         bam_name:       ${sample.tumor_bam_name}
         aliquot_uuid:   ${sample.tumor_aliquot_uuid}
-        aliquot_name:   ${sample.tumor_aliquot_barcode}
+        aliquot_barcode:   ${sample.tumor_aliquot_barcode}
         platform:       ${sample.platform}
 #end if
 ]]>
