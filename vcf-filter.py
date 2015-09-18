@@ -23,6 +23,6 @@ if __name__ == "__main__":
                 else:
                     tmp = line.split("\t")
                     if tmp[0] in allowed_seq:
-                        write = False
+                        write = True
                 if write:
                     ohandle.write(line)
