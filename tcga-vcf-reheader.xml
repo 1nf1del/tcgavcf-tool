@@ -64,6 +64,9 @@ config:
       software_version:   '${software_version}'
       software_params:    '"${software_params}"'
     fixed_headers:  # name, assert, value
+        - [fileformat,  False,   'VCFv4.1']
+        - [tcgaversion, False,   '1.1']
+        - [phasing,     False,  'none']  # TODO: Think about this one.
         - [center,      False,  '"${center}"']
         - [vcfProcessLog,   False,  '<InputVCF=<${input_vcf}>, InputVCFSource=<${software_name}>,InputVCFVer=<4.1>, InputVCFParam=<"${software_params}">>']
 #if $sample.source == "manual":

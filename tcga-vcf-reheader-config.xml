@@ -46,11 +46,7 @@ samples:
         platform:        ${platform}
 config:
     fixed_headers:  # name, assert, value
-        - [fileformat,  False,   'VCFv4.1']
-        - [tcgaversion, False,   '1.1']
-        - [phasing,     False,  'none']  # TODO: Think about this one.
         - [reference,   False,  '${reference_genome}']
-
     ]]>
         </configfile>
     </configfiles>
