@@ -176,7 +176,7 @@ def process_headers(fin, fout, fixed_headers):
                 fout.write(raw_line)
         else:
             break
-    fout.write(raw_line.replace('TUMOR','PRIMARY'))  # raw_line should now be the data header line.
+    fout.write(raw_line.replace('TUMOR','PRIMARY').replace('DNA_NORMAL', 'NORMAL').replace('DNA_PRIMARY', 'PRIMARY'))  # raw_line should now be the data header line.
     return errors
 
 
