@@ -37,7 +37,7 @@ samples:
         aliquot_barcode: ${normal_aliquot_barcode}
         platform:        ${platform}
         reference_genome: ${reference_genome}
-    TUMOR:
+    PRIMARY:
         description:     'Primary Tumor'
         analysis_uuid:   ${tumor_analysis_uuid}
         bam_name:        ${tumor_bam_name}
