@@ -13,6 +13,8 @@ cat ${config_yaml} > ${output_yaml}
       <param type="text" name="center" label="center" size="50" default="OHSU"/>
       <param type="text" name="platform" label="platform" size="50" default="Illumina"/>
       <param type="text" name="reference_genome" label="reference_genome" size="50" default="Illumina"/>
+      <param type="text" name="participant_uuid" label="participant_uuid" size="50"/>
+      <param type="text" name="disease_code" label="disease_code" default="XXXX"/>
       <param type="text" name="normal_analysis_uuid" label="normal_analysis_uuid" size="50"/>
       <param type="text" name="normal_bam_name" label="normal_bam_name" size="50"/>
       <param type="text" name="normal_aliquot_uuid" label="normal_aliquot_uuid" size="50"/>
@@ -47,6 +49,8 @@ samples:
 config:
     fixed_headers:  # name, assert, value
         - [reference,   False,  '${reference_genome}']
+        - [participant_uuid,  False,  '${participant_uuid}']
+        - [disease_code, False, '${disease_code}']
     ]]>
         </configfile>
     </configfiles>

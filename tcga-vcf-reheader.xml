@@ -26,6 +26,8 @@ ${sample.info_file}
           <when value="manual">
             <param type="text" name="reference_genome" label="Reference" size="50"/>
             <param type="text" name="platform" label="Platform" size="50" default="Illumina"/>
+            <param type="text" name="participant_uuid" label="participant_uuid" size="50"/>
+            <param type="text" name="disease_code" label="disease_code" default="XXXX"/>
             <param type="text" name="normal_analysis_uuid" label="Normal Analysis UUID" size="50"/>
             <param type="text" name="normal_bam_name" label="Normal Bam Name" size="50"/>
             <param type="text" name="normal_aliquot_uuid" label="Normal Aliquot UUID" size="50"/>
@@ -70,6 +72,8 @@ config:
         - [center,      False,  '"${center}"']
         - [vcfProcessLog,   False,  '<InputVCF=<${input_vcf}>, InputVCFSource=<${software_name}>,InputVCFVer=<4.1>, InputVCFParam=<"${software_params}">>']
 #if $sample.source == "manual":
+        - [participant_uuid,  False,  '${sample.participant_uuid}']
+        - [disease_code, False, '${sample.disease_code}']
 samples:
     NORMAL:
         description:     'Normal sample'
