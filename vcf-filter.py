@@ -1,21 +1,24 @@
 #!/usr/bin/env python
 
-import sys
+import argparse
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--filter", action="store_true", default=False)
+    parser.add_argument('input_vcf')
+    parser.add_argument('filter_file')
+    parser.add_argument('output_vcf')    
+    args = parser.parse_args()
+
     allowed_seq = {}
 
-    input_vcf = sys.argv[1]
-    filter_file = sys.argv[2]
-    output_vcf = sys.argv[3]
-
-    with open(filter_file) as handle:
+    with open(args.filter_file) as handle:
         for line in handle:
             for elem in line.rstrip().split(","):
                 allowed_seq[elem] = True
 
-    with open(input_vcf) as ihandle:
-        with open(output_vcf, "w") as ohandle:
+    with open(args.input_vcf) as ihandle:
+        with open(args.output_vcf, "w") as ohandle:
             for line in ihandle:
                 write = False
                 if line.startswith("#"):
@@ -24,5 +27,9 @@ if __name__ == "__main__":
                     tmp = line.split("\t")
                     if tmp[0] in allowed_seq:
                         write = True
+                    if args.filter:
+                        if tmp[6] != 'PASS':
+                            write = False
+                    
                 if write:
                     ohandle.write(line)

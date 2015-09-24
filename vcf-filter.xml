@@ -7,11 +7,15 @@
 
     <command interpreter="python">
 vcf-filter.py ${input_vcf} ${filter} ${output_vcf}
+#if $filterRejects:
+--filter
+#end if
     </command>
 
     <inputs>
         <param type="data" format="vcf" name="input_vcf" label="Input VCF"/>
         <param type="text" area="True" size="5x25" name="filter_text" label="Allowed Sequences"/>
+        <param name="filterRejects" type="boolean" label="Filter Rejected calls" checked="true"/>
     </inputs>
 
     <outputs>
