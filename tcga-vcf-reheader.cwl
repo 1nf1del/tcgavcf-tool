@@ -4,7 +4,8 @@ label: tcga-vcf-reheader
 baseCommand: ["python", "/opt/tcga-vcf-reheader.py"]
 requirements:
   - class: DockerRequirement
-    dockerPull: kamichiotti/tcgavcf:latest
+    dockerImageId: kamichiotti/tcgavcf
+
 inputs:
   input_vcf:
     type: File

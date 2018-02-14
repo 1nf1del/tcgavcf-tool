@@ -73,3 +73,4 @@ mkdir -p out/output_vcf
 mv "${output_vcf}" "out/output_vcf/"
 
 dx-upload-all-outputs
+
