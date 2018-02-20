@@ -6,3 +6,5 @@ RUN pip install pyyaml
 
 WORKDIR /opt
 ADD tcga-vcf-reheader.py /opt/tcga-vcf-reheader.py
+ADD reheader_wrapper.sh /opt/reheader_wrapper.sh
+

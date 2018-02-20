@@ -1,27 +1,61 @@
 cwlVersion: v1.0
 class: CommandLineTool
 label: tcga-vcf-reheader
-baseCommand: ["python", "/opt/tcga-vcf-reheader.py"]
+baseCommand: ["bash", "/opt/reheader_wrapper.sh"]
 requirements:
   - class: DockerRequirement
     dockerImageId: kamichiotti/tcgavcf
+  - class: InitialWorkDirRequirement
+    listing: [ $(inputs.input_vcf) ]
 
 inputs:
   input_vcf:
     type: File
     inputBinding:
-      position: 1
-  output_vcf:
-    type: File
+      prefix: -i
+  tumor_analysis_uuid:
+    type: string
     inputBinding:
-      position: 2
-  config:
-    type: File
+      prefix: -T
+  tumor_bam_name:
+    type: string
     inputBinding:
-      position: 3
+      prefix: -B
+  tumor_aliquot_uuid:
+    type: string
+    inputBinding:
+      prefix: -X
+  tumor_aliquot_name:
+    type: string
+    inputBinding:
+      prefix: -A
+  normal_analysis_uuid:
+    type: string
+    inputBinding:
+      prefix: -n
+  normal_bam_name:
+    type: string
+    inputBinding:
+      prefix: -b
+  normal_aliquot_uuid:
+    type: string
+    inputBinding:
+      prefix: -x
+  normal_aliquot_name:
+    type: string
+    inputBinding:
+      prefix: -a
+  platform:
+    type: string
+    inputBinding:
+      prefix: -p
+  center:
+    type: string
+    inputBinding:
+      prefix: -c
 
 outputs:
-  output_vcf
+  rehead_vcf:
     type: File
     outputBinding:
-      glob: $(inputs.output_vcf)
+      glob: "*.reheadered.vcf"
