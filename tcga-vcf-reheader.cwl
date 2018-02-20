@@ -4,7 +4,7 @@ label: tcga-vcf-reheader
 baseCommand: ["bash", "/opt/reheader_wrapper.sh"]
 requirements:
   - class: DockerRequirement
-    dockerImageId: kamichiotti/tcgavcf
+    dockerPull: opengenomics/tcgavcf-tool:latest
   - class: InitialWorkDirRequirement
     listing: [ $(inputs.input_vcf) ]
 
