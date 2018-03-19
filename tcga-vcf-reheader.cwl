@@ -4,12 +4,50 @@ label: tcga-vcf-reheader
 baseCommand: ["bash", "/opt/reheader_wrapper.sh"]
 requirements:
   - class: DockerRequirement
-    dockerPull: opengenomics/tcgavcf-tool:latest
+#    dockerPull: opengenomics/tcgavcf-tool:latest
+    dockerImageId: opengenomics/tcgavcf-tool
   - class: InitialWorkDirRequirement
-    listing: [ $(inputs.input_vcf) ]
-
+    listing: [ $(inputs.varscani_vcf), $(inputs.varscans_vcf), $(inputs.muse_vcf), $(inputs.mutect_vcf), $(inputs.somsniper_vcf), $(inputs.radia_vcf), $(inputs.pindel_vcf), $(inputs.indelocator_vcf) ]
+#  - class: ShellCommandRequirement
+  - class: InlineJavascriptRequirement
+arguments:
+  - shellQuote: false
 inputs:
-  input_vcf:
+#  input_vcfs:
+#    type: File[]
+#    inputBinding:
+#      prefix: -i
+#      separate: true
+
+  varscani_vcf:
+    type: File
+    inputBinding:
+      prefix: -i
+  varscans_vcf:
+    type: File
+    inputBinding:
+      prefix: -i
+  muse_vcf:
+    type: File
+    inputBinding:
+      prefix: -i
+  mutect_vcf:
+    type: File
+    inputBinding:
+      prefix: -i
+  somsniper_vcf:
+    type: File
+    inputBinding:
+      prefix: -i
+  radia_vcf:
+    type: File
+    inputBinding:
+      prefix: -i
+  pindel_vcf:
+    type: File
+    inputBinding:
+      prefix: -i
+  indelocator_vcf:
     type: File
     inputBinding:
       prefix: -i
@@ -55,7 +93,36 @@ inputs:
       prefix: -c
 
 outputs:
-  rehead_vcf:
+  reheaded_varscani:
     type: File
     outputBinding:
-      glob: "*.reheadered.vcf"
+      glob: varscan_indel.reheadered.vcf
+  reheaded_varscans:
+    type: File
+    outputBinding:
+      glob: varscan_fpfilter.reheadered.vcf
+  reheaded_muse:
+    type: File
+    outputBinding:
+      glob: muse.reheadered.vcf
+  reheaded_mutect:
+    type: File
+    outputBinding:
+      glob: mutect.reheadered.vcf
+  reheaded_radia:
+    type: File
+    outputBinding:
+      glob: radia_filtered.reheadered.vcf
+  reheaded_somsniper:
+    type: File
+    outputBinding:
+      glob: somatic_sniper_fpfilter.reheadered.vcf
+  reheaded_pindel:
+    type: File
+    outputBinding:
+      glob: pindel_somatic.reheadered.vcf
+  reheaded_indelocator:
+    type: File
+    outputBinding:
+      glob: indelocator.reheadered.vcf
+
