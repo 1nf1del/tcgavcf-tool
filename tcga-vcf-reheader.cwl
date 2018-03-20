@@ -4,11 +4,9 @@ label: tcga-vcf-reheader
 baseCommand: ["bash", "/opt/reheader_wrapper.sh"]
 requirements:
   - class: DockerRequirement
-#    dockerPull: opengenomics/tcgavcf-tool:latest
-    dockerImageId: opengenomics/tcgavcf-tool
+    dockerPull: opengenomics/tcgavcf-tool:latest
   - class: InitialWorkDirRequirement
     listing: [ $(inputs.varscani_vcf), $(inputs.varscans_vcf), $(inputs.muse_vcf), $(inputs.mutect_vcf), $(inputs.somsniper_vcf), $(inputs.radia_vcf), $(inputs.pindel_vcf), $(inputs.indelocator_vcf) ]
-#  - class: ShellCommandRequirement
   - class: InlineJavascriptRequirement
 arguments:
   - shellQuote: false
