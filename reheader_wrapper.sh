@@ -179,7 +179,5 @@ python /opt/tcga-vcf-reheader.py "${input_vcfs[$i]}" "${output_vcf}" $prefix\_$t
 
 output_ary[$i]=$output_vcf
 
-for ((j = 0; j < ${#output_ary[@]}; j++)); do echo "File_$j: ${output_ary[$j]}" ; done
-
 done
 
