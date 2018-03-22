@@ -11,12 +11,6 @@ requirements:
 arguments:
   - shellQuote: false
 inputs:
-#  input_vcfs:
-#    type: File[]
-#    inputBinding:
-#      prefix: -i
-#      separate: true
-
   varscani_vcf:
     type: File
     inputBinding:
@@ -102,7 +96,7 @@ outputs:
   reheaded_muse:
     type: File
     outputBinding:
-      glob: muse.reheadered.vcf
+      glob: muse_filtered.reheadered.vcf
   reheaded_mutect:
     type: File
     outputBinding:
@@ -118,9 +112,9 @@ outputs:
   reheaded_pindel:
     type: File
     outputBinding:
-      glob: pindel_somatic.reheadered.vcf
+      glob: pindel_filtered.reheadered.vcf
   reheaded_indelocator:
     type: File
     outputBinding:
-      glob: indelocator.reheadered.vcf
+      glob: indelocator_filtered.reheadered.vcf
 
