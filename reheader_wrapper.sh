@@ -87,7 +87,7 @@ do
 
     output_vcf="${input_vcfs[$i]%%.*}.reheadered.vcf"
 
-    if [[ ${input_vcfs[$i]##*/} == "muse.vcf" ]]
+    if [[ ${input_vcfs[$i]##*/} == "muse_filtered.vcf" ]]
     then
       software_name="MuSE"
       software_version=$muse_version
@@ -97,7 +97,7 @@ do
       software_name="MuTect"
       software_version=$mutect_version
       prefix="mutect"
-    elif [[ ${input_vcfs[$i]##*/} == "pindel_somatic.vcf" ]]
+    elif [[ ${input_vcfs[$i]##*/} == "pindel_filtered.vcf" ]]
     then
       software_name="Pindel"
       software_version=$pindel_version
@@ -122,7 +122,7 @@ do
       software_name="VarScan"
       software_version=$varscan_version
       prefix="varscan_indel"
-    elif [[ ${input_vcfs[$i]##*/} == "indelocator.vcf" ]]
+    elif [[ ${input_vcfs[$i]##*/} == "indelocator_filtered.vcf" ]]
     then
       software_name="Indelocator"
       software_version=$indel_version
