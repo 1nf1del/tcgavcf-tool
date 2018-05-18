@@ -87,42 +87,42 @@ do
 
     output_vcf="${input_vcfs[$i]%%.*}.reheadered.vcf"
 
-    if [[ ${input_vcfs[$i]##*/} == "muse_filtered.vcf" ]]
+    if [[ ${input_vcfs[$i]##*/} == *muse*.vcf ]]
     then
       software_name="MuSE"
       software_version=$muse_version
       prefix="muse"
-    elif [[ ${input_vcfs[$i]##*/} == "mutect.vcf" ]]
+    elif [[ ${input_vcfs[$i]##*/} == *mutect*.vcf ]]
     then
       software_name="MuTect"
       software_version=$mutect_version
       prefix="mutect"
-    elif [[ ${input_vcfs[$i]##*/} == "pindel_filtered.vcf" ]]
+    elif [[ ${input_vcfs[$i]##*/} == *pindel*.vcf ]]
     then
       software_name="Pindel"
       software_version=$pindel_version
       prefix="pindel"
-    elif [[ ${input_vcfs[$i]##*/} == "radia_filtered.vcf" ]]
+    elif [[ ${input_vcfs[$i]##*/} == *radia*.vcf ]]
     then
       software_name="RADIA"
       software_version=$radia_version
       prefix="radia"
-    elif [[ ${input_vcfs[$i]##*/} == "somatic_sniper_fpfilter.vcf" ]]
+    elif [[ ${input_vcfs[$i]##*/} == *somatic_sniper*.vcf ]]
     then
       software_name="SomaticSniper"
       software_version=$somsniper_version
       prefix="somatic_sniper_fpfilter"
-    elif [[ ${input_vcfs[$i]##*/} == "varscan_fpfilter.vcf" ]]
+    elif [[ ${input_vcfs[$i]##*/} == *varscan_fpfilter*.vcf ]]
     then
       software_name="VarScan"
       software_version=$varscan_version
       prefix="varscan_fpfilter"
-    elif [[ ${input_vcfs[$i]##*/} == "varscan_indel.vcf" ]]
+    elif [[ ${input_vcfs[$i]##*/} == *varscan_indel*.vcf ]]
     then
       software_name="VarScan"
       software_version=$varscan_version
       prefix="varscan_indel"
-    elif [[ ${input_vcfs[$i]##*/} == "indelocator_filtered.vcf" ]]
+    elif [[ ${input_vcfs[$i]##*/} == *indelocator*.vcf" ]]
     then
       software_name="Indelocator"
       software_version=$indel_version
