@@ -122,7 +122,7 @@ do
       software_name="VarScan"
       software_version=$varscan_version
       prefix="varscan_indel"
-    elif [[ ${input_vcfs[$i]##*/} == *indelocator*.vcf" ]]
+    elif [[ ${input_vcfs[$i]##*/} == *indelocator*.vcf ]]
     then
       software_name="Indelocator"
       software_version=$indel_version
