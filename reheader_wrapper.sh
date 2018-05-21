@@ -177,13 +177,6 @@ EOF
 
 python /opt/tcga-vcf-reheader.py "${input_vcfs[$i]}" "${output_vcf}" $prefix\_$timestamp\_config.yml
 
-ln=`grep -n "#CHROM" $output_vcf | cut -d: -f1`
-sed -i "${ln}s/NORMAL/$normal_aliquot_name/" "$output_vcf"
-sed -i "${ln}s/TUMOR/$tumor_aliquot_name/" "$output_vcf"
-sed -i "${ln}s/PRIMARY/$tumor_aliquot_name/" "$output_vcf"
-sed -i "${ln}s/METASTATIC/$tumor_aliquot_name/" "$output_vcf"
-sed -i "${ln}s/RECURRANCE/$tumor_aliquot_name/" "$output_vcf"
-
 output_ary[$i]=$output_vcf
 
 done
