@@ -44,7 +44,7 @@ inputs:
     inputBinding:
       prefix: -i
   tumor_analysis_uuid:
-    type: string
+    type: string?
     inputBinding:
       prefix: -T
   tumor_bam_name:
@@ -52,7 +52,7 @@ inputs:
     inputBinding:
       prefix: -B
   tumor_aliquot_uuid:
-    type: string
+    type: string?
     inputBinding:
       prefix: -X
   tumor_aliquot_name:
@@ -60,7 +60,7 @@ inputs:
     inputBinding:
       prefix: -A
   normal_analysis_uuid:
-    type: string
+    type: string?
     inputBinding:
       prefix: -n
   normal_bam_name:
@@ -68,7 +68,7 @@ inputs:
     inputBinding:
       prefix: -b
   normal_aliquot_uuid:
-    type: string
+    type: string?
     inputBinding:
       prefix: -x
   normal_aliquot_name:
@@ -76,11 +76,11 @@ inputs:
     inputBinding:
       prefix: -a
   platform:
-    type: string
+    type: string?
     inputBinding:
       prefix: -p
   center:
-    type: string
+    type: string?
     inputBinding:
       prefix: -c
 
